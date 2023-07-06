@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, StyleSheet, Platform, StatusBar, SafeAreaView, ImageBackgrounda, ImageBackground } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Platform, StatusBar, SafeAreaView, ImageBackground } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 export default class StarMapScreen extends Component {
     constructor() {
-        super()
+        super();
         this.state = {
             longitude: '',
             latitude: ''
-        }
+        };
     }
+
     render() {
         const { longitude, latitude } = this.state;
-        const path = `https://virtualsky.lco.global/embed/index.html?longitude=${longitude}&latitude=${latitude}&constellations=true&constellationlabels=true&showstarlabels=true&gridlines_az=true&live=true&projection=stereo&showdate=false&showposition=false`
+        const path = `https://virtualsky.lco.global/embed/index.html?longitude=${longitude}&latitude=${latitude}&constellations=true&constellationlabels=true&showstarlabels=true&gridlines_az=true&live=true&projection=stereo&showdate=false&showposition=false`;
+
         return (
             <View style={{ flex: 1, backgroundColor: "#1a0023" }}>
                 <SafeAreaView style={styles.droidSafeArea} />
@@ -25,7 +27,7 @@ export default class StarMapScreen extends Component {
                         onChangeText={(text) => {
                             this.setState({
                                 longitude: text
-                            })
+                            });
                         }}
                     />
                     <TextInput
@@ -35,14 +37,14 @@ export default class StarMapScreen extends Component {
                         onChangeText={(text) => {
                             this.setState({
                                 latitude: text
-                            })
+                            });
                         }}
                     />
                 </View>
                 <WebView
                     scalesPageToFit={true}
                     source={{ uri: path }}
-                    style={{ marginTop: 20, marginBottom: 20, }}
+                    style={{ marginTop: 20, marginBottom: 20 }}
                 />
             </View>
         );
@@ -56,18 +58,18 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     droidSafeArea: {
-        marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+        marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
     },
     backgroundImage: {
         flex: 1,
-        resizeMode: 'cover',
+        resizeMode: 'cover'
     },
     titleText: {
         fontSize: 35,
-        fontWeight: "bold",
-        color: "white",
-        justifyContent: "center",
-        alignContent: "center",
+        fontWeight: 'bold',
+        color: 'white',
+        justifyContent: 'center',
+        alignSelf: 'center'
     },
     inputStyle: {
         height: 40,
@@ -81,4 +83,4 @@ const styles = StyleSheet.create({
         color: 'white',
         width: 200
     }
-})
+});

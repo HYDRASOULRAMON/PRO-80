@@ -12,58 +12,59 @@ export default class DailyPicScreen extends Component {
     }
 
     componentDidMount() {
-        this.getAPOD()
+        this.getAPOD();
     }
 
     getAPOD = () => {
         axios
             .get("https://api.nasa.gov/planetary/apod?api_key=COGdtQeIWk1mbziFVQgpfK3JfP4dBSAlQg8imDGw")
             .then(response => {
-                this.setState({ apod: response.data })
+                this.setState({ apod: response.data });
             })
             .catch(error => {
-                Alert.alert(error.message)
-            })
+                Alert.alert(error.message);
+            });
     }
 
     renderImage = (url) => {
-        <Image source={{ "uri": url }} style={{ width: "100%", height: 300, borderRadius: 20, margin: 3 }}></Image>
+        return <Image source={{ uri: url }} style={{ width: "100%", height: 300, borderRadius: 20, margin: 3 }} />;
     }
 
     renderVideo = () => {
-        <TouchableOpacity style={styles.listContainer}
-            onPress={() => Linking.openURL(this.state.apod.url).catch(err => console.error("Couldn't load page", err))}
-        >
-            <View style={styles.iconContainer}>
-                <Image source={require("../assets/play-video.png")} style={{ width: 50, height: 50 }}></Image>
-            </View>
-        </TouchableOpacity >
+        return (
+            <TouchableOpacity
+                style={styles.listContainer}
+                onPress={() => Linking.openURL(this.state.apod.url).catch(err => console.error("Couldn't load page", err))}
+            >
+                <View style={styles.iconContainer}>
+                    <Image source={require("../assets/play-video.png")} style={{ width: 50, height: 50 }} />
+                </View>
+            </TouchableOpacity>
+        );
     }
 
     render() {
-        const url = this.state.apod.url
+        const url = this.state.apod.url;
         if (Object.keys(this.state.apod).length === 0) {
             return (
-                <View
-                    style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                     <Text>Loading</Text>
                 </View>
-            )
-        }
-        else {
+            );
+        } else {
             return (
                 <View style={styles.container}>
                     <SafeAreaView style={styles.droidSafeArea} />
                     <ImageBackground source={require('../assets/stars.gif')} style={styles.backgroundImage}>
-                        <View style={{ flex: 0.15, justifyContent: "center", textAlign: "center" }}>
+                        <View style={{ flex: 0.15, justifyContent: "center", alignItems: "center" }}>
                             <Text style={styles.routeText}>Daily Pic</Text>
                         </View>
                         <ScrollView style={styles.listContainer}>
                             <TouchableOpacity
                                 onPress={() => Linking.openURL(this.state.apod.url).catch(err => console.error("Couldn't load page", err))}
                             >
-                                <Image source={{ "uri": url }} style={{ width: "100%", height: 300, borderRadius: 10 }}></Image>
-                            </TouchableOpacity >
+                                <Image source={{ uri: url }} style={{ width: "100%", height: 300, borderRadius: 10 }} />
+                            </TouchableOpacity>
                             <View style={{ padding: 20 }}>
                                 <Text style={styles.titleText}>{this.state.apod.title}</Text>
                                 <Text style={styles.explanationText}>{this.state.apod.explanation}</Text>
@@ -71,7 +72,7 @@ export default class DailyPicScreen extends Component {
                         </ScrollView>
                     </ImageBackground>
                 </View>
-            )
+            );
         }
     }
 }
@@ -98,18 +99,15 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 25,
         fontWeight: "bold",
-        color: "#ec63ff",
+       color: "#ec63ff",
     },
     explanationText: {
         fontSize: 15,
         fontWeight: "bold",
         color: "white",
         marginTop: 10
-        // margin: 10,
-        // textAlign: 'center'
     },
     listContainer: {
-        backgroundColor: 'rgba(52, 52, 52, 0.5)',
         flex: 0.8,
         marginLeft: 10,
         marginRight: 10,
@@ -120,7 +118,5 @@ const styles = StyleSheet.create({
     iconContainer: {
         justifyContent: "center",
         alignItems: "center",
-
     }
 });
-
